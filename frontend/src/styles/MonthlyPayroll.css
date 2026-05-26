@@ -1,0 +1,189 @@
+/* =======================
+   🧾 Monthly Payroll Styling Fix
+   ======================= */
+
+.payroll-container {
+  padding: 20px 40px;
+  background: #f8f9fc;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Title */
+.payroll-title {
+  font-size: 26px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2c3e50;
+}
+
+/* Summary Cards */
+.payroll-summary {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+  gap: 20px;
+}
+
+.summary-card {
+  flex: 1;
+  min-width: 200px;
+  max-width: 300px;
+  background: linear-gradient(145deg, #ffffff, #f1f1f1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  text-align: center;
+  padding: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.summary-card:hover {
+  transform: translateY(-4px);
+}
+
+.summary-card h4 {
+  color: #555;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.summary-card p {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0;
+}
+
+/* Live Update Highlight */
+.live-card {
+  position: relative;
+}
+
+.live-count {
+  font-size: 28px !important;
+  font-weight: 800;
+  color: #1a73e8 !important;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    color: #1a73e8;
+  }
+
+  50% {
+    color: #0f9d58;
+  }
+
+  100% {
+    color: #1a73e8;
+  }
+}
+
+/* Table Section */
+.payroll-table-section {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.payroll-table, .leave-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.payroll-table th, .leave-table th {
+  background-color: #1a73e8;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.payroll-table td, .leave-table td {
+  text-align: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  color: #333;
+}
+
+.payroll-table tr:hover, .leave-table tr:hover {
+  background-color: #f1f8ff;
+}
+
+.generate-btn-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.generate-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.generate-btn:hover {
+  background: #218838;
+}
+
+/* Chart Section */
+.payroll-chart-section {
+  background: #fff;
+  margin-top: 25px;
+  padding: 20px;
+  border-radius: 12px;
+
+}
+
+.download-btn {
+  background-color: #00b4d8;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+.download-btn:hover {
+  background-color: #0077b6;
+  transform: scale(1.05);
+}
+
+.generate-btn {
+  background-color: #1a5e63;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.generate-btn:hover {
+  background-color: #0d4044;
+  transform: scale(1.05);
+}
+
+/* Hide Basic, Bonus, Deduction, Net Pay columns */
+.payroll-table th:nth-child(3),
+.payroll-table td:nth-child(3),
+.payroll-table th:nth-child(4),
+.payroll-table td:nth-child(4),
+.payroll-table th:nth-child(5),
+.payroll-table td:nth-child(5),
+.payroll-table th:nth-child(6),
+.payroll-table td:nth-child(6) {
+  display: none;
+}

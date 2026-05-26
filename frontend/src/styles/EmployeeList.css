@@ -1,0 +1,343 @@
+/* ============================ */
+/* MAIN CONTAINER — PROFESSIONAL */
+/* ============================ */
+.employee-list-container {
+  padding: 50px;
+  background: #f5f7fb;
+  min-height: 100vh;
+  border-radius: 30px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: #1f1f1f;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.05);
+  animation: fadeIn 0.6s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================ */
+/* HEADER + ADD BUTTON */
+/* ============================ */
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.add-employee-btn {
+  background: linear-gradient(135deg, #4b7bec, #5e60ce);
+  color: white;
+  padding: 16px 30px;
+  border-radius: 20px;
+  font-weight: 800;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.add-employee-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+  background: linear-gradient(135deg, #3867d6, #4b4ec0);
+}
+
+/* ============================ */
+/* MODAL OVERLAY & BOX */
+/* ============================ */
+.modal-overlay {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  backdrop-filter: blur(12px);
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.4s ease;
+}
+
+.modal-box {
+  width: 900px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 40px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 15px 45px rgba(0,0,0,0.25);
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-box h3 {
+  margin: 0 0 30px;
+  font-size: 42px;
+  font-weight: 800;
+  text-align: center;
+  color: #1a1a1a;
+  letter-spacing: 1px;
+}
+
+/* ============================ */
+/* FORM GRID */
+/* ============================ */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.form-grid input,
+.form-grid select {
+  padding: 16px;
+  font-size: 18px;
+  border-radius: 15px;
+  border: 1px solid #d0d7e2;
+  background: #fefefe;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.form-grid input:focus,
+.form-grid select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 12px rgba(99,102,241,0.35);
+  outline: none;
+}
+
+/* ============================ */
+/* BUTTONS — SUBMIT & CLOSE */
+/* ============================ */
+.submit-btn, .close-modal {
+  width: 55%;
+  padding: 16px;
+  font-size: 20px;
+  font-weight: 800;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: block;
+  margin: 30px auto 0;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #4e8df7, #5e60ce);
+  color: #fff;
+  border: none;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  background: linear-gradient(135deg, #3a7bff, #494bce);
+}
+
+.close-modal {
+  background: #ff4d4f;
+  color: #fff;
+  border: none;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.close-modal:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  background: #d9363e;
+}
+
+/* ============================ */
+/* TABLE WRAPPER (HORIZONTAL SCROLL) */
+/* ============================ */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 20px;
+}
+
+/* ============================ */
+/* EMPLOYEE TABLE */
+/* ============================ */
+.employee-table {
+  width: 100%;
+  min-width: 1400px; /* ensure all columns fit */
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 16px;
+  background: #fff;
+}
+
+.employee-table th,
+.employee-table td {
+  padding: 16px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.employee-table th {
+  background: linear-gradient(135deg, #4b7bec, #5e60ce);
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+/* Only Address column uses ellipsis */
+.employee-table td.address-col {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Other columns wrap normally */
+.employee-table td:not(.address-col) {
+  white-space: normal;
+}
+
+/* Hover effect */
+.employee-table tr:hover td {
+  background: #f5f7fb;
+  transition: all 0.3s ease;
+}
+
+/* ============================ */
+/* ACTION BUTTONS */
+/* ============================ */
+.edit-btn, .delete-btn {
+  padding: 10px 18px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.edit-btn { background: #fdcb6e; }
+.edit-btn:hover { background: #e1b865; transform: translateY(-2px); }
+
+.delete-btn { background: #e17055; color: #fff; }
+.delete-btn:hover { background: #d35400; transform: translateY(-2px); }
+
+/* ============================ */
+/* BADGES */
+/* ============================ */
+.type-badge, .status-badge {
+  padding: 8px 18px;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+  display: inline-block;
+}
+
+.type-permanent { background: #6366f1; }
+.type-contract { background: #f59e0b; }
+.type-internship { background: #3b82f6; }
+
+.status-active { background: #22c55e; }
+.status-inactive { background: #ef4444; }
+
+/* ============================ */
+/* MINI POPUP */
+/* ============================ */
+.mini-popup {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  background: #4caf50;
+  color: white;
+  padding: 14px 22px;
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 18px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  animation: fadeInOut 2s ease forwards;
+  z-index: 9999;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-15px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-15px); }
+}
+
+/* ============================ */
+/* RESPONSIVE TABLE WIDTHS */
+/* ============================ */
+@media screen and (max-width: 1200px) { .employee-table { min-width: 1300px; } }
+@media screen and (max-width: 992px)  { .employee-table { min-width: 1200px; font-size: 14px; } }
+@media screen and (max-width: 768px)  { .employee-table { min-width: 1100px; font-size: 13px; } }
+@media screen and (max-width: 576px)  { .employee-table { min-width: 1000px; font-size: 12px; } }
+/* TABLE WRAPPER (HORIZONTAL SCROLL) */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto; /* enable horizontal scroll */
+  -webkit-overflow-scrolling: touch;
+  border-radius: 20px;
+}
+
+/* EMPLOYEE TABLE */
+.employee-table {
+  width: 100%;
+  min-width: 1800px; /* enough for all 11 columns */
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 16px;
+  background: #fff;
+}
+
+.employee-table th,
+.employee-table td {
+  padding: 16px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.employee-table th {
+  background: linear-gradient(135deg, #4b7bec, #5e60ce);
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+/* Only Address column uses ellipsis */
+.employee-table td.address-col {
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Other columns wrap normally */
+.employee-table td:not(.address-col) {
+  white-space: normal;
+}
+
+/* Hover effect */
+.employee-table tr:hover td {
+  background: #f5f7fb;
+  transition: all 0.3s ease;
+}

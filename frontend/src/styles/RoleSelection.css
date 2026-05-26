@@ -1,0 +1,138 @@
+/* Full Page Background */
+.role-wrapper {
+  height: 100vh;
+  width: 100%;
+  background:darkblue;
+  background-size: 300% 300%;
+  animation: bgMove 12s ease infinite;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Animated Gradient */
+@keyframes bgMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Main Title */
+.main-title {
+  color: #ffffff;
+  font-size: 42px;
+  font-weight: 800;
+  text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  animation: fadeDown 1.2s ease;
+}
+
+.subtitle {
+  color: #d8d8ff;
+  font-size: 18px;
+  margin-top: 8px;
+  animation: fadeDown 1.6s ease;
+}
+
+/* Fade animation */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Card Container */
+.role-card {
+  margin-top: 40px;
+  width: 75%;
+  max-width: 780px;
+  padding: 45px 50px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(25px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+  text-align: center;
+  animation: popUp 1s ease;
+}
+
+/* Pop up animation */
+@keyframes popUp {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Headings inside card */
+.choose-title {
+  font-size: 32px;
+  color: #ffffff;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.choose-sub {
+  color: #dcdcdc;
+  font-size: 17px;
+  margin-bottom: 35px;
+}
+
+/* Role Options Layout */
+.role-options {
+  display: flex;
+  justify-content: center;
+  gap: 55px;
+}
+
+/* Role Box */
+.role-box {
+  width: 250px;
+  padding: 32px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.4s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  animation: float 5s ease-in-out infinite;
+}
+
+/* Smooth Float Animation */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Hover Effect */
+.role-box:hover {
+  transform: translateY(-15px) scale(1.05);
+  box-shadow: 0 20px 45px rgba(0,0,0,0.4);
+}
+
+/* ADMIN BOX - Premium Blue */
+.admin-box {
+  background: linear-gradient(135deg, #7fc7ff, #b3e6ff, #d9f1ff);
+  border: 2px solid rgba(130, 190, 255, 0.8);
+  box-shadow: 0 0 25px rgba(100, 170, 255, 0.7);
+}
+
+/* EMPLOYEE BOX - Purple Neon */
+.emp-box {
+  background: linear-gradient(135deg,#7fc7ff, #b3e6ff, #d9f1ff);
+  border: 2px solid rgba(200, 140, 255, 0.8);
+  box-shadow: 0 0 25px rgba(180, 100, 255, 0.7);
+}
+
+/* Role Titles */
+.role-box h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #000;
+}
+
+.role-box p {
+  font-size: 15px;
+  color: #111;
+  margin-top: 6px;
+}

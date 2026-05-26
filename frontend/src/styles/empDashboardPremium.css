@@ -1,0 +1,391 @@
+/* EMPLOYEE DASHBOARD PREMIUM STYLES */
+.emp-dash-premium {
+    margin-left: 260px;
+    padding: 110px 20px 40px 20px;
+    background: #f0f4f8;
+    /* Soft light background */
+    min-height: 100vh;
+    font-family: 'Outfit', 'Inter', sans-serif;
+    transition: margin-left 0.3s ease;
+    color: #1f2937;
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+/* HEADER SECTION */
+.emp-dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    animation: fadeInDown 0.6s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.emp-welcome {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.emp-avatar-container {
+    position: relative;
+}
+
+.emp-dash-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 20px;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.status-dot {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 14px;
+    height: 14px;
+    background: #48bb78;
+    /* Online green */
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+.emp-welcome h2 {
+    font-size: 30px;
+    font-weight: 800;
+    margin: 0;
+    color: #1a202c;
+    letter-spacing: -0.5px;
+}
+
+.emp-dash-sub {
+    color: #718096;
+    font-size: 16px;
+    margin: 4px 0 0;
+}
+
+/* DATE PICKER */
+.emp-dash-date {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.emp-dash-date input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+/* STAT CARDS */
+.emp-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.emp-stat-card {
+    padding: 24px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    height: 140px;
+    cursor: default;
+}
+
+.emp-stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.emp-stat-card .card-icon {
+    font-size: 26px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.emp-stat-card .label {
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+    margin-top: 15px;
+}
+
+.emp-stat-card .value {
+    font-size: 32px;
+    font-weight: 800;
+    color: #fff;
+}
+
+/* Card Themes */
+/* Card Themes - Unified to the same premium blue for consistency */
+.stat-present,
+.stat-absent,
+.stat-leave,
+.stat-late {
+    background: linear-gradient(135deg, #38bdf8, #2563eb);
+}
+
+/* ATTENDANCE SECTION */
+.emp-attendance-container {
+    border-radius: 28px;
+    padding: 30px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.emp-attendance-container h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #2d3748;
+}
+
+.emp-table-wrapper {
+    overflow-x: auto;
+}
+
+.emp-modern-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+    
+}
+
+.emp-modern-table th {
+    padding: 15px;
+    text-align: left;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #64748b; /* slate-500 */
+    font-weight: 700;
+}
+
+.emp-modern-table tr {
+    transition: transform 0.2s;
+}
+
+.emp-modern-table td {
+    padding: 20px 15px;
+    background: #fff;
+    border-top: 1px solid #f1f5f9;
+    border-bottom: 1px solid #f1f5f9;
+    color: #374151; /* slate-700 */
+    font-weight: 500;
+}
+
+.emp-modern-table td:first-child {
+    border-left: 1px solid #f1f5f9;
+    border-radius: 16px 0 0 16px;
+}
+
+.emp-modern-table td:last-child {
+    border-right: 1px solid #f1f5f9;
+    border-radius: 0 16px 16px 0;
+}
+
+.emp-modern-table tr:hover td {
+    background: #f8fafc;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.badge-present {
+    background: #e6fffa;
+    color: #0694a2;
+}
+
+.badge-absent {
+    background: #fdf2f2;
+    color: #c81e1e;
+}
+
+.badge-late {
+    background: #fffaf0;
+    color: #b45309;
+}
+
+.badge-on-leave {
+    background: #ebf5ff;
+    color: #1e429f;
+}
+
+/* DARK MODE OVERRIDES */
+body.dark-mode .emp-dash-premium {
+    background: #0f172a;
+}
+
+body.dark-mode .glass-panel {
+    background: rgba(30, 41, 59, 0.7);
+    border-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .emp-welcome h2,
+body.dark-mode .emp-attendance-container h3 {
+    color: #f8fafc;
+}
+
+body.dark-mode .emp-modern-table td {
+    background: #1e293b;
+    color: #e2e8f0;
+    border-color: #334155;
+}
+
+body.dark-mode .emp-modern-table tr:hover td {
+    background: #25334a;
+}
+
+body.dark-mode .emp-dash-date {
+    background: #1e293b;
+    box-shadow: none;
+}
+
+body.dark-mode .emp-dash-date input {
+    color: #cbd5e1;
+}
+
+/* Toggle Switch Styling */
+.premium-toggle {
+    position: fixed;
+    top: 15px;
+    right: 180px;
+    /* Offset for user profile */
+    z-index: 2000;
+    background: #fff;
+    padding: 8px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 13px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.premium-toggle:hover {
+    transform: scale(1.05);
+}
+
+body.dark-mode .premium-toggle {
+    background: #334155;
+    color: #fff;
+}
+/* ===== STATUS BADGES (FIXED VISIBILITY) ===== */
+.status-badge {
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    letter-spacing: 0.3px;
+    min-width: 80px;
+}
+
+/* PRESENT */
+.badge-present {
+    background-color: #bbf7d0;   /* stronger green */
+    color: #065f46 !important;   /* force dark text */
+}
+
+/* ABSENT */
+.badge-absent {
+    background-color: #fecaca;
+    color: #7f1d1d !important;
+}
+
+/* LATE */
+.badge-late {
+    background-color: #fed7aa;
+    color: #7c2d12 !important;
+}
+
+/* LEAVE */
+.badge-on-leave {
+    background-color: #dbeafe;
+    color: #1e3a8a !important;
+}
+body.dark-mode .status-badge {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+body.dark-mode .badge-present {
+    color: #86efac !important;
+}
+
+body.dark-mode .badge-absent {
+    color: #fca5a5 !important;
+}
+
+body.dark-mode .badge-late {
+    color: #fdba74 !important;
+}
+
+body.dark-mode .badge-on-leave {
+    color: #93c5fd !important;
+}

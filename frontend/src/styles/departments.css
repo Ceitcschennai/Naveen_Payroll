@@ -1,0 +1,117 @@
+.departments-container {
+  background: #f7faff;
+  min-height: 100vh;
+  padding: 40px;
+  font-family: "Poppins", sans-serif;
+}
+
+.departments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #003366;
+  border-bottom: 2px solid #003366;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+}
+
+.dept-count {
+  background: #003366;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+}
+
+.department-form {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 35px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.department-form h3 {
+  color: #003366;
+  margin-bottom: 15px;
+}
+
+.department-form input,
+.department-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+}
+
+.department-form textarea {
+  resize: none;
+  height: 80px;
+}
+
+.add-btn {
+  background-color: #003366;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-btn:hover {
+  background-color: #00509e;
+}
+
+.department-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 20px;
+}
+
+.department-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.department-info h4 {
+  color: #003366;
+  margin-bottom: 6px;
+}
+
+.department-info p {
+  margin: 4px 0;
+  color: #333;
+}
+
+.delete-btn {
+  background-color: #e63946;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  align-self: flex-end;
+  transition: 0.3s;
+}
+
+.delete-btn:hover {
+  background-color: #c1121f;
+}
+
+.no-data {
+  text-align: center;
+  color: #666;
+  margin-top: 30px;
+}

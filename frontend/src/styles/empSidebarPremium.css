@@ -1,0 +1,144 @@
+/* EMPLOYEE SIDEBAR PREMIUM STYLES */
+.emp-sidebar-premium {
+    width: 260px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: linear-gradient(180deg, #1e3a8a, #1a365d);
+    /* Dark blue theme matching admin */
+    color: #fff;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1002;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Outfit', sans-serif;
+}
+
+.emp-sidebar-header {
+    margin-bottom: 50px;
+    padding: 0 10px;
+}
+
+.emp-sidebar-logo {
+    font-size: 24px;
+    font-weight: 800;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.emp-sidebar-logo .logo-icon {
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.emp-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+}
+
+.emp-nav-item {
+    margin-bottom: 8px;
+}
+
+.emp-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 18px;
+    border-radius: 16px;
+    color: #a0aec0;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.emp-nav-link:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+.emp-nav-link.active {
+    background: #3b82f6;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.emp-nav-link .nav-icon {
+    font-size: 20px;
+}
+
+/* SUBMENU */
+.emp-submenu-container {
+    margin-top: 5px;
+    padding-left: 20px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.emp-submenu-item {
+    padding: 10px 18px;
+    color: #718096;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.emp-submenu-item:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.emp-nav-link .chevron {
+    margin-left: auto;
+    font-size: 12px;
+    transition: 0.3s;
+}
+
+/* LOGOUT */
+.emp-logout-area {
+    margin-top: auto;
+    padding-top: 30px;
+}
+
+.emp-logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px;
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+    border-radius: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%;
+    border: none;
+}
+
+.emp-logout-btn:hover {
+    background: #ef4444;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+/* DARK MODE Sidebar is already dark, but we can refine colors */
+body.dark-mode .emp-sidebar-premium {
+    background: #000;
+}

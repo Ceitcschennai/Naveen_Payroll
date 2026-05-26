@@ -1,0 +1,1 @@
+[Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK__EMPLOYEE__16EBFA260FE3DCB7'. Cannot insert duplicate key in object 'dbo.EMPLOYEE_LOGIN'. The duplicate key value is (EMP1001).\n

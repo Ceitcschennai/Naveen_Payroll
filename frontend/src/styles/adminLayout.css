@@ -1,0 +1,92 @@
+.admin-layout {
+  display: flex;
+  height: 100vh;
+  background-color: #f7f8fc;
+  font-family: "Inter", sans-serif;
+}
+
+/* SIDEBAR */
+
+
+.submenu {
+  background-color: #262b47;
+  padding-left: 35px;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.submenu li {
+  padding: 8px 0;
+}
+
+.submenu a {
+  color: #9ea3c4;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.submenu a:hover {
+  color: #ffffff;
+}
+
+/* FOOTER / LOGOUT */
+.sidebar-footer {
+  padding: 15px 20px;
+  background-color: #292d4a;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logout-btn {
+  background-color: #e63946;
+  border: none;
+  color: white;
+  font-weight: 600;
+  width: 100%;
+  padding: 10px 0;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #f45b69;
+}
+
+/* MAIN SECTION */
+.admin-main {
+  flex: 1;
+  margin-left: 250px; /* Space for sidebar */
+  padding: 25px;
+  background-color: #f7f8fc;
+  overflow-y: auto;
+}
+.sidebar-nav ul li {
+  cursor: pointer;
+  user-select: none;
+}
+.sidebar-nav ul li {
+  cursor: pointer;
+  user-select: none;
+  padding: 12px 18px;
+  border-radius: 6px;
+}
+
+.sidebar-nav ul li.active {
+  background: #4a6cf7;
+  color: white;
+}

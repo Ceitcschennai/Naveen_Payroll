@@ -1,0 +1,215 @@
+.onsite-container {
+  padding: 20px 40px;
+  font-family: "Poppins", sans-serif;
+  background: #f7f8fc;
+  min-height: 100vh;
+}
+
+.onsite-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.onsite-subtitle {
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.onsite-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.country-section {
+  flex: 1;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+}
+
+.country-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: #f3f3f3;
+  border: none;
+  padding: 10px 15px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.country-btn:hover {
+  background: #e6e6ff;
+}
+
+.country-btn.active {
+  background: #4634eb;
+  color: #fff;
+}
+
+.country-btn .count {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.map-section {
+  flex: 1.5;
+  text-align: center;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.world-map {
+  width: 90%;
+  border-radius: 8px;
+  margin-top: 10px;
+  object-fit: contain;
+}
+
+.onsite-table-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
+  overflow-x: auto;
+}
+
+.onsite-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.onsite-table th {
+  background: #4634eb;
+  color: white;
+  padding: 10px;
+  text-align: left;
+  border-radius: 4px;
+}
+
+.onsite-table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.no-data {
+  text-align: center;
+  color: #777;
+  font-style: italic;
+  padding: 15px 0;
+}
+
+.status-badge.active {
+  background: #4caf50;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.assign-section {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.assign-form {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.assign-form select,
+.assign-form button {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.assign-form button {
+  background: #4634eb;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.assign-form button:hover {
+  background: #3729b7;
+}
+
+/* 🔹 Remove button styling */
+.remove-btn {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.remove-btn:hover {
+  background-color: #d9363e;
+}
+
+/* world map container tweaks */
+.world-map-wrapper {
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+}
+
+.table-heading {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-label {
+  font-size: 14px;
+  color: #4634eb;
+}
+
+.highlight-row {
+  background-color: #e8e8ff !important;
+  font-weight: 500;
+}
+
+.highlight-row:hover {
+  background-color: #d4d4ff !important;
+}
+
+.map-section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.map-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+}
