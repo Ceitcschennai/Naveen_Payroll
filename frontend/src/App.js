@@ -13,7 +13,6 @@ import EmpLayout from "./layouts/EmpLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import EmpDashboard from "./pages/employee/EmpDashboard";
 import AttendanceDashboard from "./pages/employee/AttendanceDashboard";
-import EmpLeave from "./pages/employee/EmpLeave";
 import EmpPayroll from "./pages/employee/MonthlyPayroll";
 import EmpProfile from "./pages/employee/EmpProfile";
 import EditEmployeeProfile from "./pages/employee/EditEmployeeProfile";
@@ -31,7 +30,6 @@ import Departments from "./pages/admin/Departments";
 import MonthlyPayroll from "./pages/admin/MonthlyPayroll";
 import OnsiteEmployees from "./pages/admin/OnsiteEmployees";
 import AttendancePage from "./pages/admin/AttendancePage";
-import LeaveApprovals from "./pages/admin/LeaveApprovals";
 
 import ReportsAnalytics from "./pages/admin/ReportsAnalytics";
 
@@ -90,7 +88,6 @@ function App() {
         <Route path="attendance" element={<AttendancePage />} />
         <Route path="monthly-payroll" element={<MonthlyPayroll />} />
         <Route path="onsite" element={<OnsiteEmployees />} />
-        <Route path="leave-approvals" element={<LeaveApprovals />} />
         <Route path="reports-analytics" element={<ReportsAnalytics />} />
 
       </Route>
@@ -106,7 +103,6 @@ function App() {
       >
         <Route index element={<EmpDashboard />} />
         <Route path="attendance" element={<AttendanceDashboard />} />
-        <Route path="apply-leave" element={<EmpLeave />} />
         <Route path="payslips" element={<EmpPayroll />} />
         <Route path="profile" element={<EmpProfile />} />
         <Route path="profile/edit" element={<EditEmployeeProfile />} />

@@ -76,27 +76,6 @@ function SidebarEmp() {
 
         <div className="emp-nav-item">
           <div
-            className={`emp-nav-link ${isActive("/employee/apply-leave") ? "active" : ""}`}
-            onClick={() => setOpenLeaveMenu(!openLeaveMenu)}
-          >
-            <FaClipboardList className="nav-icon" />
-            <span>Leaves</span>
-            {openLeaveMenu ? <FaChevronUp className="chevron" /> : <FaChevronDown className="chevron" />}
-          </div>
-          {openLeaveMenu && (
-            <div className="emp-submenu-container">
-              <div
-                className="emp-submenu-item"
-                onClick={() => navigate("/employee/apply-leave")}
-              >
-                Apply Leave
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className="emp-nav-item">
-          <div
             className={`emp-nav-link ${isActive("/employee/payslips") ? "active" : ""}`}
             onClick={() => navigate("/employee/payslips")}
           >

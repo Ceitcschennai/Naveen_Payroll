@@ -62,13 +62,6 @@ const AdminLayout = ({ onLogout }) => {
             </li>
 
             <li
-              className={getActiveClass("/admin/leave-approvals")}
-              onClick={() => navigate("/admin/leave-approvals")}
-            >
-              <FaChartLine /> <span>Leave Approvals</span>
-            </li>
-
-            <li
               className={getActiveClass("/admin/monthly-payroll")}
               onClick={() => navigate("/admin/monthly-payroll")}
             >

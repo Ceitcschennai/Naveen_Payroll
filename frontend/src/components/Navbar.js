@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FiSearch, FiChevronDown } from "react-icons/fi";
+import { FiChevronDown } from "react-icons/fi";
 import { FaSignOutAlt } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -13,11 +13,16 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const fetchProfile = () => {
-    const username = localStorage.getItem("empUsername") || localStorage.getItem("username");
+    const username =
+      localStorage.getItem("empUsername") ||
+      localStorage.getItem("username");
+
     if (!username) return;
 
     axios
-      .get(`http://localhost:5000/employee/profile`, { headers: { username } })
+      .get("http://localhost:5000/employee/profile", {
+        headers: { username },
+      })
       .then((res) => {
         if (res.data?.success && res.data.employee) {
           setProfile(res.data.employee);
@@ -28,8 +33,12 @@ const Navbar = () => {
 
   useEffect(() => {
     fetchProfile();
+
     window.addEventListener("profileUpdated", fetchProfile);
-    return () => window.removeEventListener("profileUpdated", fetchProfile);
+
+    return () => {
+      window.removeEventListener("profileUpdated", fetchProfile);
+    };
   }, []);
 
   const handleLogout = () => {
@@ -44,6 +53,7 @@ const Navbar = () => {
       if (result.isConfirmed) {
         localStorage.removeItem("empUsername");
         localStorage.removeItem("employeeToken");
+
         Swal.fire({
           title: "Logged Out",
           text: "You have been logged out successfully.",
@@ -51,26 +61,19 @@ const Navbar = () => {
           timer: 1500,
           showConfirmButton: false,
         });
+
         navigate("/login/employee");
       }
     });
   };
 
-
   return (
     <nav className="top-navbar">
-      <div className="left">
-        <div className="search-box">
-          <FiSearch className="search-icon" />
-          <input type="text" placeholder="Search anything..." />
-        </div>
-      </div>
-      
-
       <div className="right">
-
-        {/* User Profile */}
-        <div className="user-info" onClick={() => setOpen(!open)}>
+        <div
+          className="user-info"
+          onClick={() => setOpen(!open)}
+        >
           <img
             src={
               profile?.profilePic
@@ -80,10 +83,16 @@ const Navbar = () => {
             alt="user"
             className="user-avatar"
           />
+
           <span className="username">
             Hi, {profile?.fullName || profile?.username || "Employee"}
           </span>
-          <FiChevronDown className={`dropdown-icon ${open ? "rotate" : ""}`} />
+
+          <FiChevronDown
+            className={`dropdown-icon ${
+              open ? "rotate" : ""
+            }`}
+          />
 
           {open && (
             <div className="dropdown-menu">
@@ -96,7 +105,11 @@ const Navbar = () => {
               >
                 My Profile
               </div>
-              <div className="logout-section" onClick={handleLogout}>
+
+              <div
+                className="logout-section"
+                onClick={handleLogout}
+              >
                 <FaSignOutAlt /> Logout
               </div>
             </div>

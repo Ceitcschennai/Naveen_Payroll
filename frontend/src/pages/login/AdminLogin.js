@@ -79,12 +79,15 @@ const AdminLogin = ({ setRole }) => {
           </button>
         </form>
 
-        <div className="login-links">
-          <Link to="/admin/forgot-password">Forgot Password?</Link><br />
-     
-          <Link to="/">Back to page</Link>
-          <p>Default email: payrollmanagementsystem123@gmail.com</p>
-        </div>
+       <div className="login-links">
+  <Link to="/admin/forgot-password">Forgot Password?</Link>
+
+  <Link to="/">Back to page</Link>
+
+  <p className="default-admin-email">
+    Default email: payrollmanagementsystem123@gmail.com
+  </p>
+</div>
       </div>
     </div>
   );

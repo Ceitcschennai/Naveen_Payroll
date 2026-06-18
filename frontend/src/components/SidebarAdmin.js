@@ -43,9 +43,6 @@ const SidebarAdmin = () => {
         <li onClick={() => navigate("/admin/employees")}>
           Manage Employees
         </li>
-        <li onClick={() => navigate("/admin/leave-approvals")}>
-          Leave Approvals
-        </li>
         <li onClick={() => navigate("/admin/reports-analytics")}>
           Reports
         </li>

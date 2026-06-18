@@ -156,48 +156,70 @@ app.post("/employee/reset-password/:token", async (req, res) => {
 app.post("/admin/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-    
+
     if (!email || !password) {
-      return res.status(400).json({ success: false, message: "Email and password are required" });
+      return res.status(400).json({
+        success: false,
+        message: "Email and password are required"
+      });
+    }
+
+    // ✅ Default Admin Login
+    if (
+      email === "payrollmanagementsystem123@gmail.com" &&
+      password === "PayrollAdmin@1234"
+    ) {
+      return res.json({
+        success: true,
+        message: "Admin login successful",
+        redirect: "/admin/dashboard"
+      });
     }
 
     const pool = await poolPromise;
 
     let adminCheck = await pool.request()
-        .input('email', sql.VarChar, email)
-        .query('SELECT * FROM ADMIN_LOGIN WHERE ADMIN_EMAIL = @email');
-    
-    // Auto-create admin if not found so new logins are stored in the DB
+      .input("email", sql.VarChar, email)
+      .query(
+        "SELECT * FROM ADMIN_LOGIN WHERE ADMIN_EMAIL = @email"
+      );
+
     if (adminCheck.recordset.length === 0) {
-      const hashed = await bcrypt.hash(password, 10);
-      await pool.request()
-          .input('email', sql.VarChar, email)
-          .input('password', sql.VarChar, hashed)
-          .query('INSERT INTO ADMIN_LOGIN (ADMIN_EMAIL, ADMIN_PASSWORD) VALUES (@email, @password)');
-      
-      adminCheck = await pool.request()
-          .input('email', sql.VarChar, email)
-          .query('SELECT * FROM ADMIN_LOGIN WHERE ADMIN_EMAIL = @email');
+      return res.status(401).json({
+        success: false,
+        message: "Invalid email or password"
+      });
     }
 
     const admin = adminCheck.recordset[0];
-    const passwordMatches = await bcrypt.compare(password, admin.ADMIN_PASSWORD);
-    const isDefaultPassword = password === "PayrollAdmin@1234" && email === "payrollmanagementsystem123@gmail.com";
 
-    if (!passwordMatches && !isDefaultPassword) {
-      return res.status(400).json({ success: false, message: "Invalid password" });
+    const passwordMatches = await bcrypt.compare(
+      password,
+      admin.ADMIN_PASSWORD
+    );
+
+    if (!passwordMatches) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid password"
+      });
     }
 
-    // Admin login history is tracked via activity log, admin record already exists
+    res.json({
+      success: true,
+      message: "Admin login successful",
+      redirect: "/admin/dashboard"
+    });
 
-    // Login successful
-    res.json({ success: true, message: "Admin login successful", redirect: "/admin/dashboard" });
   } catch (error) {
     console.error("❌ Admin login error:", error);
-    res.status(500).json({ success: false, message: "Server error", errMessage: error.message, stack: error.stack });
+
+    res.status(500).json({
+      success: false,
+      message: "Server error"
+    });
   }
 });
-
 /* ================== EMPLOYEE LOGIN & REGISTRATION ================== */
 
 app.post("/employee/login", async (req, res) => {
@@ -357,95 +379,7 @@ app.post("/employee/forgot-password", async (req, res) => {
   }
 });
 
-
-/* ================== LEAVES ================== */
-
-app.post("/employee/apply-leave", async (req, res) => {
-  try {
-    const { employeeName, leaveType, fromDate, toDate, reason } = req.body;
-    // employeeName might be EMP_ID, EMP_EMAIL or full name
-    const pool = await poolPromise;
-    const emp = await pool.request().input('id', sql.VarChar, employeeName).query(`
-      SELECT TOP 1 e.EMP_ID FROM EMPLOYEE_LOGIN e
-      LEFT JOIN PROFILE p ON e.EMP_ID = p.EMP_ID
-      WHERE e.EMP_ID = @id OR e.EMP_EMAIL = @id OR p.EMP_NAME = @id
-    `);
-    const empId = emp.recordset.length > 0 ? emp.recordset[0].EMP_ID : null;
-
-    if (!empId) return res.status(400).json({ success: false, message: "Employee not found. Ensure your session identifier matches DB." });
-
-    await pool.request()
-      .input('empId', sql.VarChar, empId)
-      .input('lType', sql.VarChar, leaveType)
-      .input('fDate', sql.Date, new Date(fromDate))
-      .input('tDate', sql.Date, new Date(toDate))
-      .input('reason', sql.VarChar, reason)
-      .input('status', sql.VarChar, 'pending')
-      .query('INSERT INTO LEAVES_TABLE (EMP_ID, LEAVE_TYPE, LEAVE_START_DATE, LEAVE_END_DATE, REASON, LEAVE_STATUS, APPLIED_DATE) VALUES (@empId, @lType, @fDate, @tDate, @reason, @status, GETDATE())');
-
-    res.status(201).json({ success: true, message: "Leave applied successfully" });
-  } catch (error) {
-    console.error("❌ Leave application error:", error);
-    res.status(500).json({ success: false, message: "Server error" });
-  }
-});
-
-app.get("/employee/leaves/team", async (req, res) => {
-  try {
-    const pool = await poolPromise;
-    const leaves = await pool.request().query('SELECT l.*, p.EMP_NAME as employeeName, l.LEAVE_TYPE as leaveType, l.LEAVE_STATUS as status, l.REASON as reason, l.LEAVE_START_DATE as fromDate, l.LEAVE_END_DATE as toDate FROM LEAVES_TABLE l LEFT JOIN PROFILE p ON l.EMP_ID = p.EMP_ID ORDER BY APPLIED_DATE DESC');
-    res.status(200).json({ success: true, leaves: leaves.recordset });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Server error" });
-  }
-});
-
-app.get("/employee/leaves/:username", async (req, res) => {
-  try {
-    const { username } = req.params; // Expects EMP_ID or username
-    const pool = await poolPromise;
-    
-    // Resolve ID
-    const emp = await pool.request().input('id', sql.VarChar, username).query(`
-      SELECT TOP 1 e.EMP_ID FROM EMPLOYEE_LOGIN e
-      LEFT JOIN PROFILE p ON e.EMP_ID = p.EMP_ID
-      WHERE e.EMP_ID = @id OR e.EMP_EMAIL = @id OR p.EMP_NAME = @id
-    `);
-    const empId = emp.recordset.length > 0 ? emp.recordset[0].EMP_ID : null;
-
-    if (!empId) return res.status(404).json({ success: false, message: "Employee not found" });
-
-    const leaves = await pool.request()
-      .input('id', sql.VarChar, empId)
-      .query('SELECT *, LEAVE_TYPE as leaveType, LEAVE_STATUS as status, REASON as reason, LEAVE_START_DATE as fromDate, LEAVE_END_DATE as toDate, APPLIED_DATE as appliedOn FROM LEAVES_TABLE WHERE EMP_ID = @id ORDER BY APPLIED_DATE DESC');
-    res.status(200).json({ success: true, leaves: leaves.recordset });
-  } catch (error) {
-    console.error("❌ Fetch leaves error:", error);
-    res.status(500).json({ success: false, message: "Server error" });
-  }
-});
-
-app.put("/admin/leaves/:id/status", async (req, res) => {
-  try {
-    const pool = await poolPromise;
-    const { status } = req.body;
-    await pool.request()
-      .input('id', sql.Int, req.params.id)
-      .input('status', sql.VarChar, status)
-      .query('UPDATE LEAVES_TABLE SET LEAVE_STATUS = @status WHERE LEAVE_ID = @id');
-
-    // Attempt to log activity
-    try {
-        await logAdminActivity(`Leave request for ID ${req.params.id} marked as ${status}`);
-    } catch(err) { console.error(err); }
-
-    res.json({ success: true, message: `Leave ${status}` });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Server error updating leave status" });
-  }
-});
-
-app.get("/admin/activity", async (req, res) => {
+ app.get("/admin/activity", async (req, res) => {
     try {
         const pool = await poolPromise;
         const result = await pool.request().query(`
