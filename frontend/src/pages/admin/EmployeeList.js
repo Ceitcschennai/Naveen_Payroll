@@ -3,11 +3,14 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import "../../styles/EmployeeList.css";
 
+const STANDARD_DEPARTMENTS = ["IT", "HR", "FINANCE", "MARKETING", "OPERATIONS"];
+
 const EmployeeList = () => {
 
     const [employees, setEmployees] = useState([]);
     const [formOpen, setFormOpen] = useState(false);
     const [editing, setEditing] = useState(null);
+    const [customDepartment, setCustomDepartment] = useState("");
 
     const [form, setForm] = useState({
         employeeId: "",
@@ -61,6 +64,7 @@ const EmployeeList = () => {
             phone: "",
             address: "",
         });
+        setCustomDepartment("");
     };
 
     // ================= SUBMIT =================
@@ -83,13 +87,21 @@ const EmployeeList = () => {
             );
         }
 
+        const payload = {
+            ...form,
+            department:
+                form.department === "OTHER"
+                    ? customDepartment
+                    : form.department,
+        };
+
         try {
 
             if (editing) {
 
                 await axios.put(
                     `http://localhost:5000/employees/${editing._id}`,
-                    form
+                    payload
                 );
 
                 Swal.fire(
@@ -102,7 +114,7 @@ const EmployeeList = () => {
 
                 await axios.post(
                     "http://localhost:5000/employees",
-                    form
+                    payload
                 );
 
                 Swal.fire(
@@ -280,7 +292,20 @@ const EmployeeList = () => {
                                     <option value="OPERATIONS">
                                         Operations
                                     </option>
+
+                                    <option value="OTHER">Other</option>
                                 </select>
+
+                                {form.department === "OTHER" && (
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Department Name"
+                                        value={customDepartment}
+                                        onChange={(e) =>
+                                            setCustomDepartment(e.target.value)
+                                        }
+                                    />
+                                )}
 
                                 <input
                                     type="number"
@@ -392,6 +417,7 @@ const EmployeeList = () => {
                             <th>Emp ID</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Department</th>
                             <th>Position</th>
                             <th>Salary</th>
                             <th>Type</th>
@@ -414,6 +440,7 @@ const EmployeeList = () => {
                                     <td>{emp.employeeId || "—"}</td>
                                     <td>{emp.username}</td>
                                     <td>{emp.email}</td>
+                                    <td>{emp.department || "—"}</td>
                                     <td>{emp.position || "—"}</td>
                                     <td>{emp.salary || "—"}</td>
                                     <td>{emp.type}</td>
@@ -441,6 +468,11 @@ const EmployeeList = () => {
 
                                                 setEditing(emp);
 
+                                                const isStandard =
+                                                    STANDARD_DEPARTMENTS.includes(
+                                                        emp.department
+                                                    );
+
                                                 setForm({
                                                     employeeId:
                                                         emp.employeeId || "",
@@ -457,8 +489,11 @@ const EmployeeList = () => {
                                                     position:
                                                         emp.position || "",
 
-                                                    department:
-                                                        emp.department || "",
+                                                    department: isStandard
+                                                        ? emp.department || ""
+                                                        : emp.department
+                                                        ? "OTHER"
+                                                        : "",
 
                                                     salary:
                                                         emp.salary || "",
@@ -485,6 +520,10 @@ const EmployeeList = () => {
                                                         emp.address || "",
                                                 });
 
+                                                setCustomDepartment(
+                                                    isStandard ? "" : emp.department || ""
+                                                );
+
                                                 setFormOpen(true);
                                             }}
                                         >
@@ -508,7 +547,7 @@ const EmployeeList = () => {
                         ) : (
 
                             <tr>
-                                <td colSpan="11">
+                                <td colSpan="12">
                                     No employees
                                 </td>
                             </tr>

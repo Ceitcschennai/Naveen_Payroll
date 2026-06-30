@@ -5,7 +5,8 @@ import "../../styles/departments.css";
 
 const Departments = () => {
     const [departments, setDepartments] = useState([]);
-    const [form, setForm] = useState({ name: "", manager: "", description: "" });
+    const [employees, setEmployees] = useState([]);
+    const [form, setForm] = useState({ name: "", empId: "", manager: "", description: "" });
 
     // ✅ Fetch all departments
     const fetchDepartments = async () => {
@@ -23,19 +24,47 @@ const Departments = () => {
         }
     };
 
+    // ✅ Fetch all employees for manager dropdown
+    const fetchEmployees = async () => {
+        try {
+            const res = await axios.get("http://localhost:5000/employees");
+            setEmployees(res.data.employees || []);
+        } catch (err) {
+            console.error("Error loading employees:", err);
+        }
+    };
+
     useEffect(() => {
         fetchDepartments();
+        fetchEmployees();
     }, []);
+
+    // ✅ Handle manager selection
+    const handleManagerChange = (e) => {
+        const selectedValue = e.target.value;
+        if (!selectedValue) {
+            setForm({ ...form, empId: "", manager: "" });
+            return;
+        }
+        const [empId, ...nameParts] = selectedValue.split(" - ");
+        const manager = nameParts.join(" - ");
+        setForm({ ...form, empId: empId.trim(), manager: manager.trim() });
+    };
 
     // ✅ Add new department
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:5000/departments", form);
+            const res = await axios.post("http://localhost:5000/departments", {
+                name: form.name,
+                empId: form.empId,
+                manager: form.manager,
+                description: form.description,
+            });
             if (res.data.success) {
                 Swal.fire("Added!", "Department added successfully", "success");
-                setForm({ name: "", manager: "", description: "" });
-                fetchDepartments(); // refresh list + count
+                setForm({ name: "", empId: "", manager: "", description: "" });
+                fetchDepartments();
             } else {
                 Swal.fire("Error", res.data.message || "Failed to add department", "error");
             }
@@ -77,13 +106,25 @@ const Departments = () => {
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     required
                 />
-                <input
-                    type="text"
-                    placeholder="Manager"
-                    value={form.manager}
-                    onChange={(e) => setForm({ ...form, manager: e.target.value })}
+
+                <select
+                    value={form.empId && form.manager ? `${form.empId} - ${form.manager}` : ""}
+                    onChange={handleManagerChange}
                     required
-                />
+                >
+                    <option value="">Select Manager</option>
+                    {employees.map((emp) => {
+                        const id = emp.employeeId || emp.EMP_ID || "";
+                        const name = emp.name || emp.EMP_NAME || emp.username || "";
+                        if (!id || !name) return null;
+                        return (
+                            <option key={id} value={`${id} - ${name}`}>
+                                {id} - {name}
+                            </option>
+                        );
+                    })}
+                </select>
+
                 <textarea
                     placeholder="Description"
                     value={form.description}
@@ -94,21 +135,35 @@ const Departments = () => {
 
             <div className="department-list">
                 {departments.length > 0 ? (
-                    departments.map((dept) => (
-                        <div key={dept.name} className="department-card">
-                            <div className="department-info">
-                                <h4>{dept.name}</h4>
-                                <p><strong>Manager:</strong> {dept.manager}</p>
-                                {dept.description && <p>{dept.description}</p>}
-                            </div>
-                            <button
-                                className="delete-btn"
-                                onClick={() => handleDelete(dept.name)}
-                            >
-                                🗑 Delete
-                            </button>
-                        </div>
-                    ))
+                    <table className="dept-table">
+                        <thead>
+                            <tr>
+                                <th>Department</th>
+                                <th>Employee ID</th>
+                                <th>Manager Name</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {departments.map((dept) => (
+                                <tr key={dept.name}>
+                                    <td>{dept.name}</td>
+                                    <td>{dept.empId || "—"}</td>
+                                    <td>{dept.manager || "—"}</td>
+                                    <td>{dept.description || "—"}</td>
+                                    <td>
+                                        <button
+                                            className="delete-btn"
+                                            onClick={() => handleDelete(dept.name)}
+                                        >
+                                            🗑 Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 ) : (
                     <p className="no-data">No departments found.</p>
                 )}

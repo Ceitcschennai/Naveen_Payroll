@@ -28,7 +28,7 @@ const ReportsAnalytics = () => {
             let totalEmployees = data.length;
 
             let deptNames = data
-                .map((e) => (e.position || "").trim().toLowerCase())
+                .map((e) => (e.department || "").trim().toLowerCase())
                 .filter((d) => d && d !== "n/a");
 
             let uniqueDepartments = new Set(deptNames);

@@ -25,6 +25,40 @@ const Tab = ({ children, active, onClick }) => (
   </button>
 );
 
+/**
+ * Calculates years and remaining months of service from a given joinDate to today.
+ * Correctly handles month-boundary edge cases: if the current day-of-month is
+ * before the join day-of-month, one month is subtracted from the total months count.
+ *
+ * @param {string|Date} joinDate - The employee's join date.
+ * @returns {string} e.g. "3 Years 3 Months", "0 Years 5 Months", or "Not Available".
+ */
+const getYearsOfService = (joinDate) => {
+  if (!joinDate) return "Not Available";
+
+  const start = new Date(joinDate);
+  if (isNaN(start.getTime())) return "Not Available";
+
+  const today = new Date();
+
+  let years = today.getFullYear() - start.getFullYear();
+  let months = today.getMonth() - start.getMonth();
+
+  // If the current day-of-month hasn't yet reached the join day-of-month,
+  // the current month is not yet complete — subtract one month.
+  if (today.getDate() < start.getDate()) {
+    months -= 1;
+  }
+
+  // Normalise: negative months roll back a year
+  if (months < 0) {
+    years -= 1;
+    months += 12;
+  }
+
+  return `${years} ${years === 1 ? "Year" : "Years"} ${months} ${months === 1 ? "Month" : "Months"}`;
+};
+
 const EmpProfile = () => {
   const navigate = useNavigate();
   const username =
@@ -203,11 +237,12 @@ const EmpProfile = () => {
                     </p>
                   </div>
 
+                  {/* Replaced Experience (always 0) with dynamically calculated Years of Service */}
                   <div className="data-group">
                     <label>
-                      <FiBriefcase /> Experience
+                      <FiBriefcase /> Years of Service
                     </label>
-                    <p>{profile.experience?.length || 0} Records</p>
+                    <p>{getYearsOfService(profile.joinDate)}</p>
                   </div>
                 </div>
               </div>

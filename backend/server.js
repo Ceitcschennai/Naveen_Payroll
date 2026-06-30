@@ -346,7 +346,6 @@ app.post("/employee/forgot-password", async (req, res) => {
 
     const resetLink = `http://localhost:3000/employee/reset-password/${token}`;
 
-    // ✅ ADD THIS BLOCK
     if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
       const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -481,42 +480,56 @@ app.put("/employee/update-profile", upload.single("profileImage"), async (req, r
 
 /* ================== DEPARTMENTS ================== */
 
+// GET /departments — fetch all, include EMP_ID as empId
 app.get("/departments", async (req, res) => {
   try {
     const pool = await poolPromise;
-    const depts = await pool.request().query('SELECT DEPT_NAME as name, DEPT_MANAGER as manager, DEPT_DESCRIPTION as description FROM DEPARTMENT');
+    const depts = await pool.request().query(
+      'SELECT DEPT_NAME as name, EMP_ID as empId, DEPT_MANAGER as manager, DEPT_DESCRIPTION as description FROM DEPARTMENT'
+    );
     res.json({ success: true, departments: depts.recordset });
   } catch (error) {
     res.status(500).json({ success: false, message: "Error fetching departments" });
   }
 });
 
+// POST /departments — save DEPT_NAME, EMP_ID, DEPT_MANAGER, DEPT_DESCRIPTION
 app.post("/departments", async (req, res) => {
   try {
-    const { name, manager, description } = req.body;
+    const { name, empId, manager, description } = req.body;
     if (!name || !manager) return res.status(400).json({ success: false, message: "Name and manager required" });
 
     const pool = await poolPromise;
-    const existing = await pool.request().input('name', sql.VarChar, name).query('SELECT DEPT_NAME FROM DEPARTMENT WHERE DEPT_NAME = @name');
-    if (existing.recordset.length > 0) return res.status(400).json({ success: false, message: "Department already exists" });
+    const existing = await pool.request()
+      .input('name', sql.VarChar, name)
+      .query('SELECT DEPT_NAME FROM DEPARTMENT WHERE DEPT_NAME = @name');
+    if (existing.recordset.length > 0)
+      return res.status(400).json({ success: false, message: "Department already exists" });
 
     await pool.request()
       .input('name', sql.VarChar, name)
+      .input('empId', sql.VarChar, empId || null)
       .input('mgr', sql.VarChar, manager)
       .input('desc', sql.VarChar, description || '')
-      .query('INSERT INTO DEPARTMENT (DEPT_NAME, DEPT_MANAGER, DEPT_DESCRIPTION) VALUES (@name, @mgr, @desc)');
+      .query(
+        'INSERT INTO DEPARTMENT (DEPT_NAME, EMP_ID, DEPT_MANAGER, DEPT_DESCRIPTION) VALUES (@name, @empId, @mgr, @desc)'
+      );
 
     const alldepts = await pool.request().query('SELECT * FROM DEPARTMENT');
     res.status(201).json({ success: true, message: "Department added", totalDepartments: alldepts.recordset.length });
   } catch (error) {
+    console.error("Error adding department:", error);
     res.status(500).json({ success: false, message: "Error adding department" });
   }
 });
 
+// DELETE /departments/:name
 app.delete("/departments/:name", async (req, res) => {
   try {
     const pool = await poolPromise;
-    await pool.request().input('name', sql.VarChar, req.params.name).query('DELETE FROM DEPARTMENT WHERE DEPT_NAME = @name');
+    await pool.request()
+      .input('name', sql.VarChar, req.params.name)
+      .query('DELETE FROM DEPARTMENT WHERE DEPT_NAME = @name');
     const remains = await pool.request().query('SELECT * FROM DEPARTMENT');
     res.json({ success: true, message: "Department deleted", totalDepartments: remains.recordset.length });
   } catch (error) {

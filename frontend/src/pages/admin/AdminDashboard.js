@@ -64,10 +64,29 @@ const AdminDashboard = () => {
 
     const fetchDepartmentCount = async () => {
         try {
-            const res = await axios.get("http://localhost:5000/departments");
-            setDepartmentCount(res.data.departments?.length || 0);
+            const res = await axios.get(
+                "http://localhost:5000/employees"
+            );
+
+            const employees = res.data.employees || [];
+
+            const uniqueDepartments = [
+                ...new Set(
+                    employees
+                        .map(emp => emp.department?.trim())
+                        .filter(Boolean)
+                )
+            ];
+
+            setDepartmentCount(
+                uniqueDepartments.length
+            );
+
         } catch (err) {
-            console.error("Error fetching department count:", err);
+            console.error(
+                "Error fetching department count:",
+                err
+            );
         }
     };
 

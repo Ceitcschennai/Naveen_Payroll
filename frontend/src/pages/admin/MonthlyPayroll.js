@@ -26,15 +26,17 @@ const MonthlyPayroll = () => {
             if (Array.isArray(res.data.employees)) {
                 const data = res.data.employees;
                 const totalEmployees = data.length;
+                // FIX 1: Use e.department instead of e.position
                 const departments = [...new Set(data.map(e =>
-                    e.position?.trim().toLowerCase()
+                    e.department?.trim().toLowerCase()
                 ))];
 
                 const totalPayroll = data.reduce((s, e) => s + Number(e.salary || 0), 0);
 
                 const deptCounts = {};
                 data.forEach((e) => {
-                    const dept = e.position?.trim().toLowerCase();
+                    // FIX 2: Use e.department instead of e.position
+                    const dept = e.department?.trim().toLowerCase();
                     if (!dept) return;
                     deptCounts[dept] = (deptCounts[dept] || 0) + 1;
                 });
@@ -109,7 +111,12 @@ const MonthlyPayroll = () => {
         
         doc.setFont("helvetica", "normal");
         doc.text(`Employee Name: ${emp.fullName || emp.username || emp.name || "--"}`, 15, 55);
-        doc.text(`Department: ${emp.department?.toUpperCase() || (emp.position?.trim().toLowerCase() !== "general" ? emp.position?.toUpperCase() : "GENERAL") || "GENERAL"}`, 15, 62);
+        // FIX 4: Use only emp.department for the Department field
+        doc.text(
+            `Department: ${emp.department?.toUpperCase() || "GENERAL"}`,
+            15,
+            62
+        );
         doc.text(`Designation: ${emp.position?.toUpperCase() || "--"}`, 115, 55);
         doc.text(`Month & Year: ${new Date().toLocaleString('default', { month: 'long' })} ${new Date().getFullYear()}`, 115, 62);
         
@@ -250,7 +257,8 @@ const MonthlyPayroll = () => {
                             return (
                                 <tr key={i}>
                                     <td>{emp.username || emp.name}</td>
-                                    <td>{emp.position?.toUpperCase() || "—"}</td>
+                                    {/* FIX 3: Use emp.department instead of emp.position */}
+                                    <td>{emp.department?.toUpperCase() || "—"}</td>
                                     <td>{Number(emp.salary).toLocaleString()}</td>
                                     <td>{bonus.toLocaleString()}</td>
                                     <td>{deductions.toLocaleString()}</td>
